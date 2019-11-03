@@ -1,0 +1,123 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+	background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/a2/Modern_sauna.jpg);
+	background-size: cover;
+}
+
+.login_form {
+	padding: 20px;
+	display: block;
+	text-align: center;
+	max-width: 500px;
+	margin: 15% auto;
+	color: white;
+	background-color: grey;
+	opacity: 0.6;
+}
+
+.addform {
+	padding: 20px;
+	display: block;
+	text-align: left;
+	max-width: 500px;
+	margin: auto;
+	color: white;
+	background-color: grey;
+	opacity: 0.6;
+}
+
+input {
+	margin: 10px;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+.nav_wrapper {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 10px;
+/*     display: grid; */
+/*     grid-template-columns: 30% auto; */ 
+}
+.nav_wrapper ul li {
+    display: inline;
+    list-style-type: none;
+}
+.nav_wrapper a {
+    letter-spacing: .1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+}
+.nav_wrapper a:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.nav_item {
+    margin-left: 5px;
+    text-transform: uppercase;
+    padding: 20px;
+    color: white;
+}
+
+.main_wrapper {
+	max-width: 1200px;
+	margin: auto;
+}
+
+.welcome {
+	margin: auto;
+	padding: 20px;
+	color: white;
+}
+
+h1 {
+	color: white;
+}
+
+table {
+	width: 100%;
+}
+
+tr, th, td {
+    padding: 20px;
+    text-align: center;
+}
+
+th {
+	background: lightblue;
+}
+
+tr:nth-child(even) {
+    background: #ccc;
+}
+
+tr:nth-child(odd) {
+    background: #fff;
+}
+
+.delete_btn {
+	background: red;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+}
+.delete_btn a {
+	color: black;
+	text-decoration: none;
+}
+
+.edit_btn {
+	background: yellow;
+	padding: 20px;
+	border-radius: 5px;
+	text-align: center;
+}
+.edit_btn a {
+	color: black;
+	text-decoration: none;
+}

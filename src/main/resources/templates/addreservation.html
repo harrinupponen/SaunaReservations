@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lisää varaus</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<nav class="nav_wrapper">
+        <div class="burger"><i class="fa fa-bars fa-3x"></i></div>
+        <ul class="nav_items main_nav mobile-hide">
+        	<li class="nav_item"><h1>Tee uusi varaus</h1></li>
+        	<li class="nav_item"><a href="/">Palaa takaisin</a></li>
+          	<li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
+          	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden = "true">
+          	<input type="submit" value="Kirjaudu ulos"/>
+          	</form>
+          </li>
+          
+        </ul>
+    </nav>
+	<div class="addform">
+	<form action="#" th:action="@{/addreservation}"  th:object= ${reservation} method="post">
+		<input type="hidden" th:field="${reservation.id}" />
+		
+		<label for="userlist">Käyttäjä: </label>
+				 <select id="userlist" class="form-control" name="user">
+	       			<option value="1">user1</option>
+	       			<option value="2">user2</option>
+	       			<option value="3">user3</option>
+	    		</select></br></br>
+		
+		<label>Päivämäärä</label>
+		<input type="text" th:field="${reservation.date}" /></br>
+		<label>Alkaa</label>
+		<input type="text" th:field="${reservation.start}" /></br>
+		<label>Loppuu</label>
+		<input type="text" th:field="${reservation.end}" /></br>
+		<label>Tyyppi</label>
+		<input type="text" th:field="${reservation.type}" /></br></br>
+		<label>Hinta</label>
+		<input type="text" th:field="${reservation.sauna.price}" /></br></br>
+		<label for="saunalist">Sauna: </label>
+				 <select id="saunalist" class="form-control" name="sauna">
+	       			<option value="1">S1</option>
+	       			<option value="2">S2</option>
+	       			<option value="3">S3</option>
+	    		</select></br></br>
+		<input type="submit" value="Tallenna" /> <input type="reset" value="Tyhjennä" />
+	</form>
+	</div>
+</body>
+</html>

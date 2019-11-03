@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Saunavaraukset</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+	<nav class="nav_wrapper">
+        <div class="burger"><i class="fa fa-bars fa-3x"></i></div>
+        <ul class="nav_items main_nav mobile-hide">
+        	<li class="nav_item"><h1>Saunavaraukset</h1></li>
+          <li class="nav_item"><a href="/addreservation">Tee uusi varaus</a></li>
+          <li class="nav_item"><a sec:authorize="hasAuthority('ADMIN')" href="/userlist">Käyttäjät</a></li>
+          <li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
+          	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden = "true">
+          	<input type="submit" value="Kirjaudu ulos"/>
+          	</form>
+          </li>
+        </ul>
+    </nav>
+<div class="main_wrapper">
+	<h2 class="welcome" th:inline="text">Tervetuloa [[${#httpServletRequest.remoteUser}]]</h2>
+	<table>
+		<tr>
+			<!-- <th>ID</th> -->
+			<th>Asunto</th>
+			<th>Pvm</th>
+			<th>Alkaa</th>
+			<th>Loppuu</th>
+			<th>Tyyppi</th>
+			<th>Hinta €</th>
+			<th>Sauna</th>
+			<th sec:authorize="hasRole('ADMIN')"> </th>
+			<th sec:authorize="hasRole('ADMIN')"> </th>
+		</tr>
+
+		<tr th:each="reservation : ${reslist}">
+			<!-- <td th:text="${reservation.id}">ID</td> -->
+			<td th:text="${reservation.user.apartmentNr}">Apartment</td>
+			<td th:text="${reservation.date}">Date</td>
+			<td th:text="${reservation.start}">Time start</td>
+			<td th:text="${reservation.end}">Time end</td>
+			<td th:text="${reservation.type}">Type</td>
+			<td th:text="${reservation.sauna.price}">Price</td>
+			<td th:text="${reservation.sauna.name}">Sauna</td>
+			<td sec:authorize="hasAuthority('ADMIN')" class="delete_btn"><a th:href="@{/deletereservation/{id}(id=${reservation.id})}">Poista</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')" class="edit_btn"><a th:href="@{/editreservation/{id}(id=${reservation.id})}">Muokkaa</a></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

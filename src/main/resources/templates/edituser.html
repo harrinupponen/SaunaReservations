@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Muokkaa käyttäjää</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+	<nav class="nav_wrapper">
+        <div class="burger"><i class="fa fa-bars fa-3x"></i></div>
+        <ul class="nav_items main_nav mobile-hide">
+        	<li class="nav_item"><h1>Muokkaa käyttäjää</h1></li>
+        	<li class="nav_item"><a href="/">Palaa takaisin</a></li>
+          	<li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
+          	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden = "true">
+          	<input type="submit" value="Kirjaudu ulos"/>
+          	</form>
+          </li>
+        </ul>
+    </nav>
+	<div class="addform">
+	<form action="#" th:action="@{/edituser}"  th:object= ${user} method="post">
+	<input type="hidden" th:field="${user.userId}" />
+	<label>Käyttäjänimi</label></br>
+	<input type="text" th:field="${user.username}" /></br>
+	<label>Salasana</label></br>
+	<input type="text" th:field="${user.passwordHash}" /></br>
+	<label>Asunnon numero</label></br>
+	<input type="text" th:field="${user.apartmentNr}" /></br>
+	<label>Etunimi</label></br>
+	<input type="text" th:field="${user.firstName}" /></br>
+	<label>Sukunimi</label></br>
+	<input type="text" th:field="${user.lastName}" /></br></br>
+	<label>Sähköposti</label></br>
+	<input type="text" th:field="${user.email}" /></br></br>
+	<label>Rooli</label></br>
+	<input type="text" th:field="${user.role}" />
+	</br></br>
+	<input type="submit" value="Tallenna" /> <input type="reset" value="Tyhjennä" />
+	</form>
+	</div>
+</body>
+</html>

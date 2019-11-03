@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Käyttäjät</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+	<nav class="nav_wrapper">
+        <div class="burger"><i class="fa fa-bars fa-3x"></i></div>
+        <ul class="nav_items main_nav mobile-hide">
+        	<li class="nav_item"><h1>Käyttäjät</h1></li>
+        	<li class="nav_item"><a sec:authorize="hasAuthority('ADMIN')" href="/adduser">Lisää käyttäjä</a></li>
+          	<li class="nav_item"><a href="/">Varaukset</a></li>
+          	<li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
+          	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden = "true">
+          	<input type="submit" value="Kirjaudu ulos"/>
+          	</form>
+          </li>
+          
+        </ul>
+    </nav>
+<div class="main_wrapper">
+	<table>
+		<tr>
+			<!-- <th>ID</th> -->
+			<th>Käyttäjänimi</th>
+			<th>Asunnon numero</th>
+			<th>Etunimi</th>
+			<th>Sukunimi</th>
+			<th>Sähköposti</th>
+			<th sec:authorize="hasRole('ADMIN')"> </th>
+			<th sec:authorize="hasRole('ADMIN')"> </th>
+		</tr>
+
+		<tr th:each="user : ${userlist}">
+			<!-- <td th:text="${user.userId}">ID</td> -->
+			<td th:text="${user.username}">Username</td>
+			<td th:text="${user.apartmentNr}">ApartmentNr</td>
+			<td th:text="${user.firstName}">Firstname</td>
+			<td th:text="${user.lastName}">Lastname</td>
+			<td th:text="${user.email}">Email</td>
+			<td sec:authorize="hasAuthority('ADMIN')" class="delete_btn"><a th:href="@{/deleteuser/{id}(id=${user.userId})}">Poista</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')" class="edit_btn"><a th:href="@{/edituser/{id}(id=${user.userId})}">Muokkaa</a></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>
