@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Saunat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+	<nav class="nav_wrapper">
+        <div class="burger"><i class="fa fa-bars fa-3x"></i></div>
+        <ul class="nav_items main_nav mobile-hide">
+        	<li class="nav_item"><h1>Saunat</h1></li>
+          	<li class="nav_item"><a href="/">Varaukset</a></li>
+          	<li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
+          	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden = "true">
+          	<input type="submit" value="Kirjaudu ulos"/>
+          	</form>
+          </li>
+          
+        </ul>
+    </nav>
+<div class="main_wrapper">
+	<table>
+		<tr>
+			<!-- <th>ID</th> -->
+			<th>Sauna</th>
+			<th>Henkilökapasiteetti</th>
+			<th>Kuvaus</th>
+			<th>Hinta</th>
+			<th>Kuva</th>
+		</tr>
+
+		<tr th:each="sauna : ${saunalist}">
+			<!-- <td th:text="${sauna.saunaId}">ID</td> -->
+			<td th:text="${sauna.name}">Sauna</td>
+			<td th:text="${sauna.personCapacity}">Person Capacity</td>
+			<td th:text="${sauna.desc}">Description</td>
+			<td th:text="${sauna.price}">Price</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

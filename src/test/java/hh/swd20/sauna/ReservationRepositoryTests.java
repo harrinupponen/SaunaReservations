@@ -30,8 +30,8 @@ public class ReservationRepositoryTests {
     }
 
     @Test
-    public void createNewBook() {
-    	Sauna sauna = new Sauna("TestSauna", 5.00);
+    public void createNewReservation() {
+    	Sauna sauna = new Sauna("TestSauna", 5, "Description", 5.00);
     	User user = new User("user1", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6",
 					"A43", "Paavo", "Petäistö", "paavo.m.petaisto@suomi24.fi", "USER");
     	Reservation reservation = new Reservation("16.10.2019", "18:00", "19:00", "Yksityinen", sauna, user);

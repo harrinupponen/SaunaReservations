@@ -32,9 +32,11 @@ public class Sauna {
 	private List<Reservation> reservationList;
 	
 	
-	public Sauna(String name, double price) {
+	public Sauna(String name, int personCapacity, String desc, double price) {
 		super();
 		this.name = name;
+		this.personCapacity = personCapacity;
+		this.desc = desc;
 		this.price = price;
 	}
 }

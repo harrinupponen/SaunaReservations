@@ -31,13 +31,13 @@ public class SaunaApplication {
 	public CommandLineRunner reservationDemo(ReservationRepository rRepository, SaunaRepository sRepository, UserRepository uRepository) { 
 		return (args) -> {
 			log.info("save a couple of reservations");
-			Sauna saunaOne = new Sauna("S1", 3.00);
+			Sauna saunaOne = new Sauna("S1", 4, "Kompakti 4 hengen sauna", 3.00);
 			sRepository.save(saunaOne);
 			
-			Sauna saunaTwo = new Sauna("S2", 4.00);
+			Sauna saunaTwo = new Sauna("S2", 8, "Isommalle porukalle", 4.00);
 			sRepository.save(saunaTwo);
 			
-			Sauna saunaThree = new Sauna("S3", 5.00);
+			Sauna saunaThree = new Sauna("S3", 12, "Suuri sauna, missä myös oleskelutila ja jääkaappi", 6.00);
 			sRepository.save(saunaThree);
 			
 			// create 3 users and admin

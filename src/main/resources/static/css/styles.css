@@ -121,3 +121,7 @@ tr:nth-child(odd) {
 	color: black;
 	text-decoration: none;
 }
+
+#addresinfo tr:nth-child(n) {
+	background: transparent;
+}

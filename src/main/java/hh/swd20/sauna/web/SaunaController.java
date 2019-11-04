@@ -166,7 +166,7 @@ public class SaunaController {
 		
 		//USER METHODS
 		
-		//Listing all reservations
+		//Listing all users
 		@GetMapping("/userlist")
 		public String getUsers(Model model) {
 				List<User> userlist =  (List<User>) uRepository.findAll(); 
@@ -212,4 +212,16 @@ public class SaunaController {
 				uRepository.deleteById(userId);
 				return "redirect:../userlist";
 			}
+			
+			//FETCH ALL SAUNAS
+			
+			//Listing all users
+			@GetMapping("/saunalist")
+			public String getSaunas(Model model) {
+					List<Sauna> saunalist =  (List<Sauna>) sRepository.findAll(); 
+					model.addAttribute("saunalist", saunalist); 
+					return "saunalist";
+									
+			}
+			
 }

@@ -12,6 +12,7 @@
         	<li class="nav_item"><h1>Saunavaraukset</h1></li>
           <li class="nav_item"><a href="/addreservation">Tee uusi varaus</a></li>
           <li class="nav_item"><a sec:authorize="hasAuthority('ADMIN')" href="/userlist">Käyttäjät</a></li>
+          <li class="nav_item"><a href="/saunalist">Saunat</a></li>
           <li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
           	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden = "true">
           	<input type="submit" value="Kirjaudu ulos"/>
@@ -24,6 +25,7 @@
 	<table>
 		<tr>
 			<!-- <th>ID</th> -->
+			<th>Käyttäjä</th>
 			<th>Asunto</th>
 			<th>Pvm</th>
 			<th>Alkaa</th>
@@ -37,6 +39,7 @@
 
 		<tr th:each="reservation : ${reslist}">
 			<!-- <td th:text="${reservation.id}">ID</td> -->
+			<td th:text="${reservation.user.username}">User</td>
 			<td th:text="${reservation.user.apartmentNr}">Apartment</td>
 			<td th:text="${reservation.date}">Date</td>
 			<td th:text="${reservation.start}">Time start</td>
