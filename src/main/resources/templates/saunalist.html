@@ -11,6 +11,7 @@
         <ul class="nav_items main_nav mobile-hide">
         	<li class="nav_item"><h1>Saunat</h1></li>
           	<li class="nav_item"><a href="/">Varaukset</a></li>
+          	<li class="nav_item"><a sec:authorize="hasAuthority('ADMIN')" href="/userlist">Käyttäjät</a></li>
           	<li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
           	<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden = "true">
           	<input type="submit" value="Kirjaudu ulos"/>
