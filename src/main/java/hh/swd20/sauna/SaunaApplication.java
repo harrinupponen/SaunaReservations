@@ -31,16 +31,16 @@ public class SaunaApplication {
 	public CommandLineRunner reservationDemo(ReservationRepository rRepository, SaunaRepository sRepository, UserRepository uRepository) { 
 		return (args) -> {
 			log.info("save a couple of reservations");
+			
+			// Create 3 saunas
 			Sauna saunaOne = new Sauna("S1", 4, "Kompakti 4 hengen sauna", 3.00);
 			sRepository.save(saunaOne);
-			
 			Sauna saunaTwo = new Sauna("S2", 8, "Isommalle porukalle", 4.00);
 			sRepository.save(saunaTwo);
-			
 			Sauna saunaThree = new Sauna("S3", 12, "Suuri sauna, missä myös oleskelutila ja jääkaappi", 6.00);
 			sRepository.save(saunaThree);
 			
-			// create 3 users and admin
+			// Create 3 users and admin
 			User user1 = new User("user1", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6",
 					"A43", "Paavo", "Petäistö", "paavo.m.petaisto@suomi24.fi", "USER");
 			User user2 = new User("user2", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6",
@@ -54,21 +54,16 @@ public class SaunaApplication {
 			uRepository.save(user3);
 			uRepository.save(admin);
 			
-			rRepository.save(new Reservation("16.10.2019", "18:00", "19:00", "Yksityinen", saunaOne, user1));
+			// Save 3 reservations
+			rRepository.save(new Reservation("16.11.2019", "18:00", "19:00", "Yksityinen", saunaOne, user1));
 			rRepository.save(new Reservation("18.10.2019", "19:00", "20:00", "Lenkkisauna M", saunaTwo, admin));
 			rRepository.save(new Reservation("01.12.2019", "20:00", "21:00", "Yksityinen", saunaThree, user3));
 			
-			
-			
-			
-//			log.info("fetch all reservations");
-//			for (Reservation reservation : rRepository.findAll()) {
-//				log.info(reservation.toString());
-//			}
 
 		};
 	}
 	
+	// Create Bcrypt encoder for new users
 	@Bean
 	PasswordEncoder getEncoder() {
 		return new BCryptPasswordEncoder();

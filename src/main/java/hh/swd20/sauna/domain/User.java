@@ -10,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import hh.swd20.sauna.validation.StringUpperCase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,6 +53,8 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @NotNull
+    @StringUpperCase()
     @Column(name = "role", nullable = false)
     private String role;
 	

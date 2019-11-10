@@ -30,7 +30,9 @@
 			<th>Sukunimi</th>
 			<th>Sähköposti</th>
 			<th sec:authorize="hasRole('ADMIN')"> </th>
+			<!--  
 			<th sec:authorize="hasRole('ADMIN')"> </th>
+			-->
 		</tr>
 
 		<tr th:each="user : ${userlist}">
@@ -41,7 +43,9 @@
 			<td th:text="${user.lastName}">Lastname</td>
 			<td th:text="${user.email}">Email</td>
 			<td sec:authorize="hasAuthority('ADMIN')" class="delete_btn"><a th:href="@{/deleteuser/{id}(id=${user.userId})}">Poista</a></td>
+			<!--
 			<td sec:authorize="hasAuthority('ADMIN')" class="edit_btn"><a th:href="@{/edituser/{id}(id=${user.userId})}">Muokkaa</a></td>
+			-->
 		</tr>
 	</table>
 </div>

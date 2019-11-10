@@ -21,7 +21,7 @@
     </nav>
 	<div class="addform">
 	<form action="#" th:action="@{/addreservation}"  th:object= ${reservation} method="post">
-		<table id="addresinfo">
+		<table class="addinfo">
 			<tr><td><input type="hidden" th:field="${reservation.id}" /></td></tr>
 			<tr>
 				<td>Käyttäjä:</td>
@@ -33,10 +33,11 @@
     					th:utext="${user.username}" />
 					</select>
 				</td>
+				
 			</tr>
 			<tr>
 				<td>Päivämäärä:</td>
-				<td><input type="text" th:field="${reservation.date}" /></td>
+				<td><input type="date" th:field="${reservation.date}" /></td>
 			</tr>
 			<tr>	
 				<td>Alkaa:</td>

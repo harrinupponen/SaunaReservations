@@ -19,8 +19,8 @@
         </ul>
     </nav>
 	<div class="addform">
-		<form action="#" th:action="@{/editreservation}"  th:object= ${reservation} method="post">
-			<input type="hidden" th:field="${reservation.id}" />
+	<form action="#" th:action="@{/editreservation}"  th:object= ${reservation} method="post">
+		<input type="hidden" th:field="${reservation.id}" />
 			
 			<label for="userlist">Käyttäjä: </label>
 				 <select id="userlist" class="form-control" name="user">
@@ -37,16 +37,15 @@
 			<input type="text" th:field="${reservation.end}" /></br>
 			<label>Tyyppi</label>
 			<input type="text" th:field="${reservation.type}" /></br></br>
-			<label>Hinta</label>
-			<input type="text" th:field="${reservation.sauna.price}" /></br></br>
+			
 			<label for="saunalist">Sauna: </label>
 					 <select id="saunalist" class="form-control" name="sauna">
 		       			<option value="1">S1</option>
 		       			<option value="2">S2</option>
 		       			<option value="3">S3</option>
 		    		</select></br></br>
-			<input type="submit" value="Tallenna" /> <input type="reset" value="Tyhjennä" />
-		</form>
+		    <input type="submit" value="Tallenna" /> <input type="reset" value="Tyhjennä" />
+	</form>
 	</div>
     
 </body>

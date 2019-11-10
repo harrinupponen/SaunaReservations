@@ -19,26 +19,43 @@
           
         </ul>
     </nav>
-	<div class="addform">
-	<form action="#" th:action="@{/adduser}"  th:object= ${user} method="post">
-	<input type="hidden" th:field="${user.userId}" />
-	<label>Käyttäjänimi</label></br>
-	<input type="text" th:field="${user.username}" /></br>
-	<label>Salasana</label></br>
-	<input type="text" th:field="${user.plainPassword}" /></br>
-	<label>Asunnon numero</label></br>
-	<input type="text" th:field="${user.apartmentNr}" /></br>
-	<label>Etunimi</label></br>
-	<input type="text" th:field="${user.firstName}" /></br>
-	<label>Sukunimi</label></br>
-	<input type="text" th:field="${user.lastName}" /></br></br>
-	<label>Sähköposti</label></br>
-	<input type="text" th:field="${user.email}" /></br></br>
-	<label>Rooli</label></br>
-	<input type="text" th:field="${user.role}" />
-	</br></br>
-	<input type="submit" value="Tallenna" /> <input type="reset" value="Tyhjennä" />
-	</form>
+    <div class="addform">
+		<form action="#" th:action="@{/adduser}"  th:object= ${user} method="post">
+    			<table class="addinfo">
+					<tr><td><input type="hidden" th:field="${user.userId}" /></td></tr>
+					<tr>
+						<td>Käyttäjänimi:</td>
+						<td><input type="text" th:field="${user.username}" /></td>
+					</tr>
+					<tr>
+						<td>Salasana:</td>
+						<td><input type="text" th:field="${user.plainPassword}" /></td>
+					</tr>
+					<tr>	
+						<td>Asunnon numero:</td>
+						<td><input type="text" th:field="${user.apartmentNr}" /></td>
+					</tr>
+					<tr>	
+						<td>Etunimi:</td>
+						<td><input type="text" th:field="${user.firstName}" /></td>
+					</tr>
+					<tr>	
+						<td>Sukunimi:</td>
+						<td><input type="text" th:field="${user.lastName}" /></td>
+					</tr>	
+					<tr>	
+						<td>Sähköposti:</td>
+						<td><input type="text" th:field="${user.email}" /></td>
+					</tr>
+					<tr>	
+						<td>Rooli:</td>
+						<td><input type="text" th:field="${user.role}" /></td>
+						<td th:if="${#fields.hasErrors('*')}">Roolin pitää olla isoilla kirjaimilla. Esim. "USER"</td>
+					</tr>
+					<tr><td><input type="submit" value="Tallenna" /> <input type="reset" value="Tyhjennä" /></td></tr>
+				</table>
+		</form>
 	</div>
 </body>
 </html>
+

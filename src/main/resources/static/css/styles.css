@@ -122,6 +122,6 @@ tr:nth-child(odd) {
 	text-decoration: none;
 }
 
-#addresinfo tr:nth-child(n) {
+.addinfo tr:nth-child(n) {
 	background: transparent;
 }

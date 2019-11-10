@@ -3,10 +3,13 @@ package hh.swd20.sauna.web;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,11 +45,6 @@ public class SaunaController {
         return "login";
     }
 	
-	/*
-	 * @GetMapping("/") public String welcome(Model model) { return "home"; }
-	 */
-	
-	
 	//Listing all reservations
 	@GetMapping("/")
 	public String getReservations(Model model) {
@@ -58,28 +56,28 @@ public class SaunaController {
 	
 	// *****REST******
 	
-	// Fetch all reservations
-	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping(value="/reservations")
-	public @ResponseBody List<Reservation> resListRest() {
-		return (List<Reservation>) rRepository.findAll();
-	}
+		// Fetch all reservations
+		@PreAuthorize("hasAuthority('ADMIN')")
+		@GetMapping(value="/reservations")
+		public @ResponseBody List<Reservation> resListRest() {
+			return (List<Reservation>) rRepository.findAll();
+		}
+		
+		// Show one reservation by id
+		@PreAuthorize("hasAuthority('ADMIN')")
+		@GetMapping(value="/reservation/{id}")
+	    public @ResponseBody Optional<Reservation> findReservationRest(@PathVariable("id") Long resId) {	
+	    	return rRepository.findById(resId);
+	    }
+		
+		// Add a new reservation
+		@PreAuthorize("hasAuthority('ADMIN')")
+	    @PostMapping(value="/reservations")
+	    public @ResponseBody Reservation saveReservationRest(@RequestBody Reservation reservation) {	
+	    	return rRepository.save(reservation);
+	    }
 	
-	// Show one reservation by id
-	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping(value="/reservation/{id}")
-    public @ResponseBody Optional<Reservation> findReservationRest(@PathVariable("id") Long resId) {	
-    	return rRepository.findById(resId);
-    }
-	
-	// Add a new reservation
-	@PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping(value="/reservations")
-    public @ResponseBody Reservation saveReservationRest(@RequestBody Reservation reservation) {	
-    	return rRepository.save(reservation);
-    }
-	
-	// Fetch all saunas
+		// Fetch all saunas
 		@PreAuthorize("hasAuthority('ADMIN')")
 		@GetMapping(value="/saunas")
 		public @ResponseBody List<Sauna> saunaListRest() {
@@ -185,7 +183,10 @@ public class SaunaController {
 
 			// receive and save data from the form
 			@PostMapping(value = "/adduser")
-			public String addUser(@ModelAttribute User user) {
+			public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
+				if(bindingResult.hasErrors()) {
+					return "adduser";
+				}
 				uRepository.save(user);
 				return "redirect:/userlist";
 			}
