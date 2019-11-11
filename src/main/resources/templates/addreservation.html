@@ -6,7 +6,7 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
-<nav class="nav_wrapper">
+	<nav class="nav_wrapper">
         <div class="burger"><i class="fa fa-bars fa-3x"></i></div>
         <ul class="nav_items main_nav mobile-hide">
         	<li class="nav_item"><h1>Tee uusi varaus</h1></li>
@@ -37,7 +37,7 @@
 			</tr>
 			<tr>
 				<td>Päivämäärä:</td>
-				<td><input type="date" th:field="${reservation.date}" /></td>
+				<td><input type="date" th:field="${reservation.day}" /></td>
 			</tr>
 			<tr>	
 				<td>Alkaa:</td>

@@ -1,5 +1,7 @@
 package hh.swd20.sauna;
 
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -16,8 +18,6 @@ import hh.swd20.sauna.domain.SaunaRepository;
 import hh.swd20.sauna.domain.User;
 import hh.swd20.sauna.domain.UserRepository;
 
-
-
 @SpringBootApplication
 public class SaunaApplication {
 	
@@ -31,6 +31,11 @@ public class SaunaApplication {
 	public CommandLineRunner reservationDemo(ReservationRepository rRepository, SaunaRepository sRepository, UserRepository uRepository) { 
 		return (args) -> {
 			log.info("save a couple of reservations");
+			
+			// Create 3 example dates
+			LocalDate day1 = LocalDate.of(2019, 11, 20);
+			LocalDate day2 = LocalDate.of(2019, 11, 21);
+			LocalDate day3 = LocalDate.of(2019, 11, 22);
 			
 			// Create 3 saunas
 			Sauna saunaOne = new Sauna("S1", 4, "Kompakti 4 hengen sauna", 3.00);
@@ -55,15 +60,15 @@ public class SaunaApplication {
 			uRepository.save(admin);
 			
 			// Save 3 reservations
-			rRepository.save(new Reservation("16.11.2019", "18:00", "19:00", "Yksityinen", saunaOne, user1));
-			rRepository.save(new Reservation("18.10.2019", "19:00", "20:00", "Lenkkisauna M", saunaTwo, admin));
-			rRepository.save(new Reservation("01.12.2019", "20:00", "21:00", "Yksityinen", saunaThree, user3));
+			rRepository.save(new Reservation(day1, "18:00", "19:00", "Yksityinen", saunaOne, user1));
+			rRepository.save(new Reservation(day2, "19:00", "20:00", "Lenkkisauna M", saunaTwo, admin));
+			rRepository.save(new Reservation(day3, "20:00", "21:00", "Yksityinen", saunaThree, user3));
 			
 
 		};
 	}
 	
-	// Create Bcrypt encoder for new users
+	// Create Bcrypt encoder for new users passwords
 	@Bean
 	PasswordEncoder getEncoder() {
 		return new BCryptPasswordEncoder();

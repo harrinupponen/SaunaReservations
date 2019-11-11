@@ -1,5 +1,6 @@
 package hh.swd20.sauna;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -25,23 +26,24 @@ public class ReservationRepositoryTests {
     @Test
     public void findByDateShouldReturnReservation() {
     	
-    	List<Reservation> reservations = rRepository.findByDate("16.10.2019");
+    	List<Reservation> reservations = rRepository.findByDay(LocalDate.of(2019, 11, 20));
     	assertThat(reservations.get(0).getType()).isEqualTo("Yksityinen");
     }
 
     @Test
     public void createNewReservation() {
+    	LocalDate day = LocalDate.of(2019, 11, 20);
     	Sauna sauna = new Sauna("TestSauna", 5, "Description", 5.00);
     	User user = new User("user1", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6",
 					"A43", "Paavo", "Petäistö", "paavo.m.petaisto@suomi24.fi", "USER");
-    	Reservation reservation = new Reservation("16.10.2019", "18:00", "19:00", "Yksityinen", sauna, user);
+    	Reservation reservation = new Reservation(day, "18:00", "19:00", "Yksityinen", sauna, user);
     	rRepository.save(reservation);
     	assertThat(reservation.getId()).isNotNull();
     }
     
     @Test
     public void deleteReservation() {
-    	List<Reservation> reservations = rRepository.findByDate("01.12.2019");
+    	List<Reservation> reservations = rRepository.findByDay(LocalDate.of(2019, 11, 20));
     	rRepository.deleteById(reservations.get(0).getId());
     	assertThat(reservations.isEmpty());
     }

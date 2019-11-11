@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Saunavaraukset</title>
+<title>Omat varaukset</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
@@ -9,9 +9,8 @@
 	<nav class="nav_wrapper">
         <div class="burger"><i class="fa fa-bars fa-3x"></i></div>
         <ul class="nav_items main_nav mobile-hide">
-        	<li class="nav_item"><h1>Saunavaraukset</h1></li>
+        	<li class="nav_item"><h1>Omat varaukset</h1></li>
           <li class="nav_item"><a href="/addreservation">Tee uusi varaus</a></li>
-          <li class="nav_item"><a href="/ownreservations">Omat varaukset</a></li>
           <li class="nav_item"><a sec:authorize="hasAuthority('ADMIN')" href="/userlist">Käyttäjät</a></li>
           <li class="nav_item"><a href="/saunalist">Saunat</a></li>
           <li class="nav_item"><a href="javascript: document.logoutForm.submit()" >Kirjaudu ulos</a>
@@ -38,7 +37,7 @@
 			<th sec:authorize="hasRole('ADMIN')"> </th>
 		</tr>
 
-		<tr th:each="reservation : ${reslist}">
+		<tr th:each="reservation : ${ownreslist}">
 			<!-- <td th:text="${reservation.id}">ID</td> -->
 			<td th:text="${reservation.user.username}">User</td>
 			<td th:text="${reservation.user.apartmentNr}">Apartment</td>

@@ -54,6 +54,7 @@ public class User {
     private String email;
 
     @NotNull
+    // A custom annotation, used for the user role input should be uppercase
     @StringUpperCase()
     @Column(name = "role", nullable = false)
     private String role;

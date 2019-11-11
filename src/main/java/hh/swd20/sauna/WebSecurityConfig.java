@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import hh.swd20.sauna.web.UserDetailsServiceImp;
 
 @Configuration
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
@@ -32,8 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and().csrf().ignoringAntMatchers("/h2-console/**")
         .and().headers().frameOptions().sameOrigin()
         .and()
-        //.authorizeRequests().antMatchers("/").permitAll()
-        //.and()
         .authorizeRequests()
           .anyRequest().authenticated()
           .and()

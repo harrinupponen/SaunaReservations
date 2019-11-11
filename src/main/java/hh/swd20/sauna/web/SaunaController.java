@@ -1,5 +1,6 @@
 package hh.swd20.sauna.web;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +26,6 @@ import hh.swd20.sauna.domain.SaunaRepository;
 import hh.swd20.sauna.domain.User;
 import hh.swd20.sauna.domain.UserRepository;
 
-
-
 @Controller
 public class SaunaController {
 	
@@ -45,84 +44,28 @@ public class SaunaController {
         return "login";
     }
 	
-	//Listing all reservations
-	@GetMapping("/")
-	public String getReservations(Model model) {
-			List<Reservation> reslist =  (List<Reservation>) rRepository.findAll(); 
-			model.addAttribute("reslist", reslist); 
-			return "reslist";
-							
-	}
-	
-	// *****REST******
-	
-		// Fetch all reservations
-		@PreAuthorize("hasAuthority('ADMIN')")
-		@GetMapping(value="/reservations")
-		public @ResponseBody List<Reservation> resListRest() {
-			return (List<Reservation>) rRepository.findAll();
-		}
-		
-		// Show one reservation by id
-		@PreAuthorize("hasAuthority('ADMIN')")
-		@GetMapping(value="/reservation/{id}")
-	    public @ResponseBody Optional<Reservation> findReservationRest(@PathVariable("id") Long resId) {	
-	    	return rRepository.findById(resId);
-	    }
-		
-		// Add a new reservation
-		@PreAuthorize("hasAuthority('ADMIN')")
-	    @PostMapping(value="/reservations")
-	    public @ResponseBody Reservation saveReservationRest(@RequestBody Reservation reservation) {	
-	    	return rRepository.save(reservation);
-	    }
-	
-		// Fetch all saunas
-		@PreAuthorize("hasAuthority('ADMIN')")
-		@GetMapping(value="/saunas")
-		public @ResponseBody List<Sauna> saunaListRest() {
-			return (List<Sauna>) sRepository.findAll();
-		}
-		
-		// Show one sauna by id
-		@PreAuthorize("hasAuthority('ADMIN')")
-		@GetMapping(value="/sauna/{id}")
-	    public @ResponseBody Optional<Sauna> findSaunaRest(@PathVariable("id") Long saunaId) {	
-	    	return sRepository.findById(saunaId);
-	    }
-		
-		// Add a new sauna
-		@PreAuthorize("hasAuthority('ADMIN')")
-	    @PostMapping(value="/saunas")
-	    public @ResponseBody Sauna saveSaunaRest(@RequestBody Sauna sauna) {	
-	    	return sRepository.save(sauna);
-	    }
-		
-		// Fetch all users
-		@PreAuthorize("hasAuthority('ADMIN')")
-		@GetMapping(value="/users")
-		public @ResponseBody List<User> userListRest() {
-			return (List<User>) uRepository.findAll();
-		}
-		
-		// Show one user by id
-		@PreAuthorize("hasAuthority('ADMIN')")
-		@GetMapping(value="/user/{id}")
-	    public @ResponseBody Optional<User> findUserRest(@PathVariable("id") Long userId) {	
-	    	return uRepository.findById(userId);
-	    }
-		
-		// Add a new reservation
-		@PreAuthorize("hasAuthority('ADMIN')")
-	    @PostMapping(value="/users")
-	    public @ResponseBody User saveUserRest(@RequestBody User user) {	
-	    	return uRepository.save(user);
-	    }
-    
-    //**************
-	
 	// RESERVATION METHODS
-	// empty form
+    
+  //Listing all reservations
+  	@GetMapping("/")
+  	public String getReservations(Model model) {
+  			List<Reservation> reslist =  (List<Reservation>) rRepository.findAll(); 
+  			model.addAttribute("reslist", reslist); 
+  			return "reslist";
+  							
+  	}
+  	
+  	//Listing only logged in users reservations
+  	@GetMapping(value="/ownreservations")
+  	public String findUserReservations(Model model, Principal principal) {
+  	      String username = principal.getName(); //get logged in username
+  	      List<Reservation> reservations = (List<Reservation>) rRepository.findByUser_Username(username);
+  	      model.addAttribute("reservations", reservations);
+  	      return "ownreslist";
+  	}
+    
+    
+	// Add a reservation / empty form
     	// @PreAuthorize("hasAuthority('ADMIN')")
 		@GetMapping(value = "/addreservation")
 		public String getNewReservationForm(Model model) {
@@ -173,7 +116,7 @@ public class SaunaController {
 								
 		}
 		
-		// empty form
+		// empty form for a new user
 	    	@PreAuthorize("hasAuthority('ADMIN')")
 			@GetMapping(value = "/adduser")
 			public String getNewUserForm(Model model) {
@@ -181,7 +124,7 @@ public class SaunaController {
 				return "adduser";
 			}
 
-			// receive and save data from the form
+			// receive and save data from the form, validation used also
 			@PostMapping(value = "/adduser")
 			public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
 				if(bindingResult.hasErrors()) {
@@ -190,6 +133,8 @@ public class SaunaController {
 				uRepository.save(user);
 				return "redirect:/userlist";
 			}
+			
+			//THIS IS INCOMPLETE ------------------------------------
 			
 			// find user by id
 			@PreAuthorize("hasAuthority('ADMIN')")
@@ -205,6 +150,8 @@ public class SaunaController {
 				uRepository.save(user);
 				return "redirect:/userlist";
 			}
+			
+			//-----------------------------------------------------
 			
 			// delete user
 			@PreAuthorize("hasAuthority('ADMIN')")
@@ -225,4 +172,70 @@ public class SaunaController {
 									
 			}
 			
+			// **********************REST***************************
+			
+			// Fetch all reservations
+			@PreAuthorize("hasAuthority('ADMIN')")
+			@GetMapping(value="/reservations")
+			public @ResponseBody List<Reservation> resListRest() {
+				return (List<Reservation>) rRepository.findAll();
+			}
+			
+			// Show one reservation by id
+			@PreAuthorize("hasAuthority('ADMIN')")
+			@GetMapping(value="/reservation/{id}")
+		    public @ResponseBody Optional<Reservation> findReservationRest(@PathVariable("id") Long resId) {	
+		    	return rRepository.findById(resId);
+		    }
+			
+			// Add a new reservation
+			@PreAuthorize("hasAuthority('ADMIN')")
+		    @PostMapping(value="/reservations")
+		    public @ResponseBody Reservation saveReservationRest(@RequestBody Reservation reservation) {	
+		    	return rRepository.save(reservation);
+		    }
+		
+			// Fetch all saunas
+			@PreAuthorize("hasAuthority('ADMIN')")
+			@GetMapping(value="/saunas")
+			public @ResponseBody List<Sauna> saunaListRest() {
+				return (List<Sauna>) sRepository.findAll();
+			}
+			
+			// Show one sauna by id
+			@PreAuthorize("hasAuthority('ADMIN')")
+			@GetMapping(value="/sauna/{id}")
+		    public @ResponseBody Optional<Sauna> findSaunaRest(@PathVariable("id") Long saunaId) {	
+		    	return sRepository.findById(saunaId);
+		    }
+			
+			// Add a new sauna
+			@PreAuthorize("hasAuthority('ADMIN')")
+		    @PostMapping(value="/saunas")
+		    public @ResponseBody Sauna saveSaunaRest(@RequestBody Sauna sauna) {	
+		    	return sRepository.save(sauna);
+		    }
+			
+			// Fetch all users
+			@PreAuthorize("hasAuthority('ADMIN')")
+			@GetMapping(value="/users")
+			public @ResponseBody List<User> userListRest() {
+				return (List<User>) uRepository.findAll();
+			}
+			
+			// Show one user by id
+			@PreAuthorize("hasAuthority('ADMIN')")
+			@GetMapping(value="/user/{id}")
+		    public @ResponseBody Optional<User> findUserRest(@PathVariable("id") Long userId) {	
+		    	return uRepository.findById(userId);
+		    }
+			
+			// Add a new reservation
+			@PreAuthorize("hasAuthority('ADMIN')")
+		    @PostMapping(value="/users")
+		    public @ResponseBody User saveUserRest(@RequestBody User user) {	
+		    	return uRepository.save(user);
+		    }
+	    
+	    //*************************************************		
 }

@@ -13,8 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import hh.swd20.sauna.domain.Sauna;
 import hh.swd20.sauna.domain.SaunaRepository;
 
-
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class SaunaRepositoryTests {
@@ -36,7 +34,7 @@ public class SaunaRepositoryTests {
     }
     
     @Test
-    public void deleteCategory() {
+    public void deleteSauna() {
     	List<Sauna> saunas = sRepository.findByName("S2");
     	sRepository.deleteById(saunas.get(0).getSaunaId());
     	assertThat(saunas.isEmpty());
