@@ -37,7 +37,7 @@
 			<th sec:authorize="hasRole('ADMIN')"> </th>
 		</tr>
 
-		<tr th:each="reservation : ${ownreslist}">
+		<tr th:each="reservation : ${reservations}">
 			<!-- <td th:text="${reservation.id}">ID</td> -->
 			<td th:text="${reservation.user.username}">User</td>
 			<td th:text="${reservation.user.apartmentNr}">Apartment</td>
